@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class Liste {
-	public ArrayList<String[]> gebeListe(Map<String,String> querys) {
+public abstract class Liste {
+	public static ArrayList<String[]> gebeListe(Map<String,String[]> querys) {
 		ArrayList<String[]> liste = new ArrayList<>();
 		StringBuilder query = new StringBuilder("SELECT id,name,christianname FROM address");
 		if(querys!=null && !querys.isEmpty()){
 			query.append(" WHERE");
-			for(Entry<String,String> entry : querys.entrySet()){
-				query.append(" "+entry.getKey()+" LIKE '"+entry.getValue()+"' AND");
+			for(Entry<String,String[]> entry : querys.entrySet()){
+				for(String value : entry.getValue()){
+					query.append(" "+entry.getKey()+" LIKE '"+value+"' AND");
+				}
+				
 			}
 			query.append(" TRUE");
 			System.out.println("Query: ["+query.toString()+"]");
