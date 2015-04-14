@@ -199,6 +199,18 @@ public class Address {
 		return false;
 	}
 	
+	private void delete() {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM address WHERE id='"+id+"'");
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return id+"\t"+name+"\t"+firstname+"\t"+email+"\t"+birthday;
