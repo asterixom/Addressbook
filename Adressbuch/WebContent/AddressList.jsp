@@ -45,7 +45,17 @@ function suche(prefix,suffix){
 <div name="suchbegriff"><select name="schluessel">
 	<option value="name">Name</option>
 	<option value="christianname">Vorname</option>
-</select><input name="wert" type="text" onkeyup="suche('%','%')"/></div>
+	<option value="email">eMail</option>
+	<option value="addressform">Anrede</option>
+	<option value="phone">Telefon</option>
+	<option value="mobile">Handy</option>
+	<option value="street">Straße</option>
+	<option value="number">Hausnummer</option>
+	<option value="city">Ort</option>
+	<option value="postcode">PLZ</option>
+	<option value="country">Land</option>
+	<option value="birthday">Geburtstag</option>
+</select><input name="wert" type="text" onkeyup="suche('%','%')" autocomplete="off"/></div>
 <input type="submit" value="Suchen">
 </form>
 </div>
