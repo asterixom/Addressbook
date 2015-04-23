@@ -15,14 +15,22 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 
-function suche(prefix,suffix){
+function suche(prefix,suffix,event){
 	var prefix = prefix || "";
 	var suffix = suffix || "";
+	var event = event || null;
+	if(event!=null){
+		if(event.which==13){
+			return false;
+		}
+	}
 	var suchbegriffe = document.getElementsByName('suchbegriff');
 	var data="";
-	var value = prefix+suchbegriffe[0].lastChild.value+suffix;
-	if(value=="") value="%";
-	data+=encodeURIComponent(suchbegriffe[0].firstChild.value)+"="+encodeURIComponent(value)+"&";
+	$(suchbegriffe).each(function(index,element){
+		var value = prefix+element.children[1].value+suffix;
+		if(value=="") value="%";
+		data+=encodeURIComponent(element.firstChild.value)+"="+encodeURIComponent(value)+"&";
+	});
 	var xmlhttp=new XMLHttpRequest();
 	xmlhttp.onreadystatechange=function(){
 		if(xmlhttp.readyState==4){
@@ -33,7 +41,27 @@ function suche(prefix,suffix){
 	xmlhttp.send();
 }
 
+function add(){
+	document.getElementById('suchen').innerHTML+='<div name="suchbegriff"><select name="schluessel">\
+	<option value="name">Name</option>\
+	<option value="christianname">Vorname</option>\
+	<option value="email">eMail</option>\
+	<option value="addressform">Anrede</option>\
+	<option value="phone">Telefon</option>\
+	<option value="mobile">Handy</option>\
+	<option value="street">Straße</option>\
+	<option value="number">Hausnummer</option>\
+	<option value="city">Ort</option>\
+	<option value="postcode">PLZ</option>\
+	<option value="country">Land</option>\
+	<option value="birthday">Geburtstag</option>\
+</select><input name="wert" type="text" onkeyup="suche(\'%\',\'%\',event)" autocomplete="off"/>\
+<input type="button" value="-" onClick="removeDiv(this.parentNode);"></div>';
+}
 
+function removeDiv(element){
+	element.parentNode.removeChild(element);
+}
 
 </script>
 </head>
@@ -41,22 +69,8 @@ function suche(prefix,suffix){
 <div id="header"><h1>Adressbuch</h1></div>
 <div id="body">
 <div id="suche">
-<form onSubmit="suche();return false;">
-<div name="suchbegriff"><select name="schluessel">
-	<option value="name">Name</option>
-	<option value="christianname">Vorname</option>
-	<option value="email">eMail</option>
-	<option value="addressform">Anrede</option>
-	<option value="phone">Telefon</option>
-	<option value="mobile">Handy</option>
-	<option value="street">Straße</option>
-	<option value="number">Hausnummer</option>
-	<option value="city">Ort</option>
-	<option value="postcode">PLZ</option>
-	<option value="country">Land</option>
-	<option value="birthday">Geburtstag</option>
-</select><input name="wert" type="text" onkeyup="suche('%','%')" autocomplete="off"/></div>
-<input type="submit" value="Suchen">
+<form onSubmit="suche();return false;"><div id="suchen">
+</div><input type="button" value="+" onClick="add();"><input type="submit" value="Suchen">
 </form>
 </div>
 <div id="Liste">
