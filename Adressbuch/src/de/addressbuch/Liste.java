@@ -33,6 +33,9 @@ public abstract class Liste {
 			while(result.next()){
 				liste.add(new String[]{result.getString("id"),result.getString("name"),result.getString("christianname")});
 			}
+			result.close();
+			stmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

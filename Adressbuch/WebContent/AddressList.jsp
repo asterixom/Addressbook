@@ -15,10 +15,12 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 
-function suche(){
+function suche(prefix,suffix){
+	var prefix = prefix || "";
+	var suffix = suffix || "";
 	var suchbegriffe = document.getElementsByName('suchbegriff');
 	var data="";
-	var value = suchbegriffe[0].lastChild.value;
+	var value = prefix+suchbegriffe[0].lastChild.value+suffix;
 	if(value=="") value="%";
 	data+=encodeURIComponent(suchbegriffe[0].firstChild.value)+"="+encodeURIComponent(value)+"&";
 	var xmlhttp=new XMLHttpRequest();
@@ -43,7 +45,7 @@ function suche(){
 <div name="suchbegriff"><select name="schluessel">
 	<option value="name">Name</option>
 	<option value="christianname">Vorname</option>
-</select><input name="wert" type="text"/></div>
+</select><input name="wert" type="text" onkeyup="suche('%','%')"/></div>
 <input type="submit" value="Suchen">
 </form>
 </div>
