@@ -5,7 +5,7 @@
 <%@ page import="java.util.Map" %>
 <% 
 	Map<String, String[]> map = request.getParameterMap();
-	if(map==null || map.isEmpty()){
+	if(!request.getMethod().equalsIgnoreCase("POST")){
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,27 +17,38 @@
 
 function suche(){
 	var suchbegriffe = document.getElementsByName('suchbegriff');
-	var values[suchbegriffe.length][2];
-	values[0][0]=suchbegriffe[0].firstChild.value;
-	values[0][1]=suchbegriffe[0].lastChild.value;
+	var data="";
+	var value = suchbegriffe[0].lastChild.value;
+	if(value=="") value="%";
+	data+=encodeURIComponent(suchbegriffe[0].firstChild.value)+"="+encodeURIComponent(value)+"&";
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4){
+			document.getElementById('werte').innerHTML=xmlhttp.responseText;
+		}
+	}
+	xmlhttp.open("POST","AddressList.jsp?"+data,true);
+	xmlhttp.send();
 }
 
 
 
 </script>
 </head>
-<body>
+<body onLoad="suche()">
 <div id="header"><h1>Adressbuch</h1></div>
 <div id="body">
 <div id="suche">
+<form onSubmit="suche();return false;">
 <div name="suchbegriff"><select name="schluessel">
 	<option value="name">Name</option>
 	<option value="christianname">Vorname</option>
 </select><input name="wert" type="text"/></div>
-<input type="button" value="Suchen" onClick="suche();">
+<input type="submit" value="Suchen">
+</form>
 </div>
 <div id="Liste">
-<table><thead><tr><th>Name</th><th>Vorname</th></tr></thead><tbody id="werte"></tbody></table>
+<table><thead><tr><th>Name</th><th>Vorname</th><th>EDIT</th></tr></thead><tbody id="werte"></tbody></table>
 </div>
 </div>
 </body>
@@ -45,8 +56,8 @@ function suche(){
 <%
 	}else{
 		ArrayList<String[]> adressen = Liste.gebeListe(map);
-%>
-<tr><td>Testkunde</td><td>Testvorname</td></tr>
-<%
+		for(String[] adresse : adressen){
+			out.println("<tr><td>"+adresse[1]+"</td><td>"+adresse[2]+"</td><td><a href='Detail.jsp?id="+adresse[0]+"'>EDIT</a></td></tr>");
+		}
 	}
 %>
