@@ -5,16 +5,16 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 /**
- * Application Lifecycle Listener implementation class TestListener
- *
+ * Application Lifecycle Listener implementation class DriverIntitializer
+ * Initializes the jdbc Driver for the Database connection
  */
 @WebListener
-public class TestListener implements ServletContextListener {
+public class DriverIntitializer implements ServletContextListener {
 
     /**
      * Default constructor. 
      */
-    public TestListener() {
+    public DriverIntitializer() {
         // TODO Auto-generated constructor stub
     }
 
