@@ -10,18 +10,18 @@ import java.util.HashMap;
 public class Address {
 
 	private int id=-1;
-	private String name;
-	private String firstname;
-	private String addressform;
-	private String email;
-	private String phone;
-	private String mobile;
-	private String street;
-	private int number;
-	private String city;
-	private String postcode;
-	private String country;
-	private Date birthday;
+	private String name="";
+	private String firstname="";
+	private String addressform="";
+	private String email="";
+	private String phone="";
+	private String mobile="";
+	private String street="";
+	private int number=0;
+	private String city="";
+	private String postcode="";
+	private String country="";
+	private Date birthday=new Date(0);
 	private static HashMap<Integer,Address> addresses = new HashMap<>();
 	
 	public int getId() {
@@ -143,6 +143,8 @@ public class Address {
 			ResultSet result = stmt.executeQuery("SELECT * FROM address WHERE id="+id);
 			if(result.next()){
 				copyToObj(result,address);
+			}else{
+				address=null;
 			}
 			result.close();
 			stmt.close();
@@ -151,6 +153,22 @@ public class Address {
 			e.printStackTrace();
 		}
 		return address;
+	}
+	
+	public void reload(){
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			Statement stmt = conn.createStatement();
+			ResultSet result = stmt.executeQuery("SELECT * FROM address WHERE id="+id);
+			if(result.next()){
+				copyToObj(result,this);
+			}
+			result.close();
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	private static void copyToObj(ResultSet result,Address address){
 		try {
@@ -196,18 +214,25 @@ public class Address {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return id!=-1;
 	}
 	
-	private void delete() {
+	public void delete() {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("DELETE FROM address WHERE id='"+id+"'");
+			addresses.remove(id);
 			stmt.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void saveAll(){
+		for(Address address : addresses.values()){
+			address.save();
 		}
 	}
 	
