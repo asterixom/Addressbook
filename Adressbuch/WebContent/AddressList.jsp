@@ -61,17 +61,19 @@ function add(){
 
 function removeDiv(element){
 	element.parentNode.removeChild(element);
+	suche();
 }
 
 </script>
 </head>
-<body onLoad="suche()">
+<body onLoad="suche()" link="#0000FF" vlink="#0000FF" alink="#0000FF">
 <div id="header"><h1>Adressbuch</h1></div>
 <div id="body">
 <div id="suche">
 <form onSubmit="suche();return false;"><div id="suchen">
 </div><input type="button" value="+" onClick="add();"><input type="submit" value="Suchen">
 </form>
+
 </div>
 <div id="Liste">
 <table><thead><tr><th>Name</th><th>Vorname</th><th>EDIT</th></tr></thead><tbody id="werte"></tbody></table>

@@ -72,11 +72,11 @@ public class Address {
 		this.phone = phone;
 	}
 
-	public String getMobil() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobil(String mobil) {
+	public void setMobile(String mobil) {
 		this.mobile = mobil;
 	}
 

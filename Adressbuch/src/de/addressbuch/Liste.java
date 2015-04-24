@@ -13,7 +13,7 @@ public abstract class Liste {
 	public static ArrayList<String[]> gebeListe(Map<String,String[]> querys) {
 		ArrayList<String[]> liste = new ArrayList<>();
 		StringBuilder query = new StringBuilder("SELECT id,name,christianname FROM address");
-		System.out.println(querys);
+		//System.out.println(querys);
 		if(querys!=null && !querys.isEmpty()){
 			query.append(" WHERE");
 			for(Entry<String,String[]> entry : querys.entrySet()){
@@ -23,7 +23,7 @@ public abstract class Liste {
 				
 			}
 			query.append(" TRUE");
-			System.out.println("Query: ["+query.toString()+"]");
+			//System.out.println("Query: ["+query.toString()+"]");
 		}
 		Connection conn;
 		try {
