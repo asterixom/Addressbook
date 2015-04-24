@@ -34,6 +34,9 @@
       	<goals><goal>test</goal></goals>
       	</execution>
       	</executions>
+      	<configuration>
+     <testSourceDirectory>src/de/addressbook/test</testSourceDirectory>
+      	</configuration>
       </plugin>
     </plugins>
   </build>

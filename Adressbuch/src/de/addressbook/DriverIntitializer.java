@@ -1,4 +1,4 @@
-package de.addressbuch;
+package de.addressbook;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

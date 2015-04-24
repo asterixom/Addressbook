@@ -1,4 +1,4 @@
-package de.addressbuch.junit;
+package de.addressbook.junit;
 
 import static org.junit.Assert.*;
 
@@ -9,8 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.addressbuch.Address;
-import de.addressbuch.Liste;
+import de.addressbook.Address;
+import de.addressbook.Liste;
 
 public class DBTest {
 

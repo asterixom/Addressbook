@@ -1,4 +1,4 @@
-package de.addressbuch;
+package de.addressbook;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
