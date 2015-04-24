@@ -23,8 +23,21 @@ function toText(){
 	request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("id");
 	try{
-		int idint = Integer.parseInt(id);
-		Address address = Address.read(idint);
+		Address address;
+		if("-1".equals(id)){
+			address = new Address();
+			address.setId(-1);
+		}else{
+			int idint = Integer.parseInt(id);
+			address = Address.read(idint);
+			if(address==null){
+				%>
+					<h1>Diese Adresse existiert nicht!</h1>
+					<a href="AddressList.jsp">Zurück</a>
+				<%
+				return;
+			}
+		}
 		String[][] field = {
 				{"Addressform","Anrede"},
 				{"Firstname","Vorname"},
@@ -51,7 +64,9 @@ function toText(){
 				}
 			}
 		}
-		if(diff) address.save();
+		if(diff && address.save() && "-1".equals(id)){
+				response.sendRedirect("Detail.jsp?id="+address.getId());
+		}
 %>
 <form method="POST" enctype="application/x-www-form-urlencoded">
 <input type="hidden" name="id" value="<%=id%>">

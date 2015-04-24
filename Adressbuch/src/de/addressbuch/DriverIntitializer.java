@@ -28,7 +28,7 @@ public class DriverIntitializer implements ServletContextListener {
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-    	Main.main(null);
+//    	Main.main(null);
     }
 
 	/**
