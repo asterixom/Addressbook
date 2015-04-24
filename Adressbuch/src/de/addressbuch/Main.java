@@ -5,6 +5,8 @@ import java.util.HashMap;
 public class Main {
 
 	
+	public static final String CON_INFO = "jdbc:mysql://localhost/addressbook?user=addressbook&password=password";
+
 	public static void main(String[] args) {
 		Address address = Address.read(1);
 		System.out.println(address.toString());

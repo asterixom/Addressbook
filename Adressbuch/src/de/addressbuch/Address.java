@@ -138,7 +138,7 @@ public class Address {
 		Address address = new Address();
 		addresses.put(id, address);
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			Connection conn = DriverManager.getConnection(Main.CON_INFO);
 			Statement stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery("SELECT * FROM address WHERE id="+id);
 			if(result.next()){
@@ -157,7 +157,7 @@ public class Address {
 	
 	public void reload(){
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			Connection conn = DriverManager.getConnection(Main.CON_INFO);
 			Statement stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery("SELECT * FROM address WHERE id="+id);
 			if(result.next()){
@@ -192,7 +192,7 @@ public class Address {
 	
 	public boolean save(){
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			Connection conn = DriverManager.getConnection(Main.CON_INFO);
 			Statement stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery("SELECT * FROM address WHERE id="+id);
 			if(result.next()){
@@ -219,7 +219,7 @@ public class Address {
 	
 	public void delete() {
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			Connection conn = DriverManager.getConnection(Main.CON_INFO);
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("DELETE FROM address WHERE id='"+id+"'");
 			addresses.remove(id);

@@ -27,7 +27,7 @@ public abstract class Liste {
 		}
 		Connection conn;
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=password");
+			conn = DriverManager.getConnection(Main.CON_INFO);
 			Statement stmt = conn.createStatement();
 			ResultSet result = stmt.executeQuery(query.toString());
 			while(result.next()){
