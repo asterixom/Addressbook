@@ -1,4 +1,4 @@
-package de.addressbook.junit;
+package test.java;
 
 import static org.junit.Assert.*;
 

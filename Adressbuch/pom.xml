@@ -29,14 +29,11 @@
       	<artifactId>maven-surefire-plugin</artifactId>
       	<version>2.11</version>
       	<executions>
-      	<execution>
-      	<phase>test</phase>
-      	<goals><goal>test</goal></goals>
-      	</execution>
+      		<execution>
+      			<phase>test</phase>
+      			<goals><goal>test</goal></goals>
+      		</execution>
       	</executions>
-      	<configuration>
-     <testSourceDirectory>src/de/addressbook/test</testSourceDirectory>
-      	</configuration>
       </plugin>
     </plugins>
   </build>
