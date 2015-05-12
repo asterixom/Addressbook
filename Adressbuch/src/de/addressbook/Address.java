@@ -199,8 +199,8 @@ public class Address {
 			ResultSet result = ps1.executeQuery();
 			if(result.next()){
 				System.out.println("Update!");
-				PreparedStatement ps2 = conn.prepareStatement("UPDATE address SET name='?', christianname='?', email='?', addressform='?', phone='?', "
-						+ "mobile='?', street='?', number='?', city='?', postcode='?', country='?', birthday='?' WHERE id=?");
+				PreparedStatement ps2 = conn.prepareStatement("UPDATE address SET name=?, christianname=?, email=?, addressform=?, phone=?, "
+						+ "mobile=?, street=?, number=?, city=?, postcode=?, country=?, birthday=? WHERE id=?");
 				ps2.setString(1, name);
 				ps2.setString(2, firstname);
 				ps2.setString(3, email);
@@ -218,8 +218,8 @@ public class Address {
 				ps2.close();
 			}else{
 				System.out.println("Insert!");
-				PreparedStatement ps2 = conn.prepareStatement("INSERT INTO address SET name='?', christianname='?', email='?', addressform='?', phone='?', "
-						+ "mobile='?', street='?', number='?', city='?', postcode='?', country='?', birthday='?'",Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement ps2 = conn.prepareStatement("INSERT INTO address SET name=?, christianname=?, email=?, addressform=?, phone=?, "
+						+ "mobile=?, street=?, number=?, city=?, postcode=?, country=?, birthday=?",Statement.RETURN_GENERATED_KEYS);
 				ps2.setString(1, name);
 				ps2.setString(2, firstname);
 				ps2.setString(3, email);
