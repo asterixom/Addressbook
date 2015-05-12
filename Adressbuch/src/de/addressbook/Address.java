@@ -2,6 +2,7 @@ package de.addressbook;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -193,23 +194,54 @@ public class Address {
 	public boolean save(){
 		try {
 			Connection conn = DriverManager.getConnection(Main.CON_INFO);
-			Statement stmt = conn.createStatement();
-			ResultSet result = stmt.executeQuery("SELECT * FROM address WHERE id="+id);
+			PreparedStatement ps1 = conn.prepareStatement("SELECT * FROM address WHERE id=?");
+			ps1.setInt(0, id);
+			ResultSet result = ps1.executeQuery();
 			if(result.next()){
 				System.out.println("Update!");
-				stmt.executeUpdate("UPDATE address SET name='"+name+"', christianname='"+firstname+"', email='"+email+"', addressform='"+addressform+"', phone='"+phone+"', "
+				PreparedStatement ps2 = conn.prepareStatement("UPDATE address SET name='?', christianname='?', email='"+email+"', addressform='"+addressform+"', phone='"+phone+"', "
 						+ "mobile='"+mobile+"', street='"+street+"', number='"+number+"', city='"+city+"', postcode='"+postcode+"', country='"+country+"', birthday='"+birthday+"' WHERE id="+id);
+				ps2.setString(0, name);
+				ps2.setString(1, firstname);
+				ps2.setString(2, email);
+				ps2.setString(3, addressform);
+				ps2.setString(4, phone);
+				ps2.setString(5, mobile);
+				ps2.setString(6, street);
+				ps2.setInt(7, number);
+				ps2.setString(8, city);
+				ps2.setString(9, postcode);
+				ps2.setString(10, country);
+				ps2.setDate(11, birthday);
+				ps2.setInt(12, id);
+				ps2.executeUpdate();
+				ps2.close();
 			}else{
 				System.out.println("Insert!");
-				stmt.executeUpdate("INSERT INTO address SET name='"+name+"', christianname='"+firstname+"', email='"+email+"', addressform='"+addressform+"', phone='"+phone+"', "
+				PreparedStatement ps2 = conn.prepareStatement("INSERT INTO address SET name='?', christianname='?', email='"+email+"', addressform='"+addressform+"', phone='"+phone+"', "
 						+ "mobile='"+mobile+"', street='"+street+"', number='"+number+"', city='"+city+"', postcode='"+postcode+"', country='"+country+"', birthday='"+birthday+"'",Statement.RETURN_GENERATED_KEYS);
-				ResultSet res = stmt.getGeneratedKeys();
+				ps2.setString(0, name);
+				ps2.setString(1, firstname);
+				ps2.setString(2, email);
+				ps2.setString(3, addressform);
+				ps2.setString(4, phone);
+				ps2.setString(5, mobile);
+				ps2.setString(6, street);
+				ps2.setInt(7, number);
+				ps2.setString(8, city);
+				ps2.setString(9, postcode);
+				ps2.setString(10, country);
+				ps2.setDate(11, birthday);
+				ps2.setInt(12, id);
+				ps2.executeUpdate();
+				ResultSet res = ps2.getGeneratedKeys();
 				if(res.next()){
 					id=res.getInt(1);
 				}
+				ps2.close();
 			}
 			result.close();
-			stmt.close();
+			ps1.close();
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
