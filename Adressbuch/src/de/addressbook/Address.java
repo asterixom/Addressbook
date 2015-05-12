@@ -195,7 +195,7 @@ public class Address {
 		try {
 			Connection conn = DriverManager.getConnection(Main.CON_INFO);
 			PreparedStatement ps1 = conn.prepareStatement("SELECT * FROM address WHERE id=?");
-			ps1.setInt(0, id);
+			ps1.setInt(1, id);
 			ResultSet result = ps1.executeQuery();
 			if(result.next()){
 				System.out.println("Update!");
